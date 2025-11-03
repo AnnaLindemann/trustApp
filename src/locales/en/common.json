@@ -1,0 +1,119 @@
+{
+  "app": {
+    "title": "Trust",
+    "score": "Score: {{value}} / 100"
+  },
+  "trust": {
+    "title": "Trust Scale",
+    "addChild": "Add Child"
+  },
+  "btn": {
+    "truth": "Truth",
+    "lie": "Lie",
+    "repair": "Repair",
+    "reset": "Reset",
+    "ru": "RU",
+    "de": "DE",
+    "en": "ENG"
+  },
+  "intro": {
+    "title": "Welcome to Trust Jar",
+    "lead": "The app helps foster honest dialogue and track trust level.",
+    "next": "Next"
+  },
+  "meter": {
+    "label": "Trust level",
+    "status": {
+      "low": "Low",
+      "midlow": "Lowered",
+      "midhigh": "Good",
+      "high": "Excellent"
+    },
+    "addChild": {
+      "title": "Add Child",
+      "name": "Name",
+      "photo": "Photo",
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "repair": {
+      "title": "Repair Trust",
+      "lead": "Go through the steps together: stay calm, understand feelings and needs, choose a repair action, and agree on a clear plan.",
+      "complete": "Complete Repair",
+      "steps": {
+        "pause": {
+          "title": "Pause & breathe",
+          "summary": "Calm first: a few slow breaths. The goal is to restore trust, not to punish.",
+          "prompts": [
+            "Let’s take 3 slow breaths.",
+            "We’re talking to rebuild trust and understand each other."
+          ]
+        },
+        "facts": {
+          "title": "Facts without labels",
+          "summary": "Separate facts from interpretations. Capture what happened.",
+          "promptsParent": [
+            "What I saw/found: …",
+            "Only facts (who/what/when)."
+          ],
+          "promptsChild": [
+            "How was it from your side?",
+            "What were you trying to get or avoid?"
+          ]
+        },
+        "feelings": {
+          "title": "Feelings & needs",
+          "summary": "Name feelings and the needs underneath, for both sides.",
+          "promptsParent": [
+            "I feel … because … matters to me.",
+            "I need … (honesty/safety/respect/predictability)."
+          ],
+          "promptsChild": [
+            "I felt …; it was important for me to …",
+            "What would help you next time?"
+          ]
+        },
+        "impact": {
+          "title": "Impact",
+          "summary": "Understand the consequences for relationship, rules, safety and plans.",
+          "prompts": [
+            "How did this affect our trust/agreements?",
+            "What became harder for you/for the family?"
+          ]
+        },
+        "amends": {
+          "title": "Make amends",
+          "summary": "Choose a concrete action that reduces harm and strengthens trust.",
+          "exercises": [
+            "Options: specific apology; fix/replace what’s possible; help/contribution; honest weekly report on rules.",
+            "Pick a realistic step the child can do (with your support)."
+          ]
+        },
+        "plan": {
+          "title": "Agreement & boundaries",
+          "summary": "Define a clear plan: what, when, how to verify. Clarify boundaries and consequences if it repeats.",
+          "prompts": [
+            "What exactly will you do? By when? How will we know it’s done?",
+            "Which rules do we fix? What happens if they’re broken again?"
+          ]
+        },
+        "appreciation": {
+          "title": "Appreciation",
+          "summary": "Acknowledge effort and openness – it supports motivation.",
+          "prompts": [
+            "Thank you for speaking honestly.",
+            "I notice your effort — that helps our trust."
+          ]
+        },
+        "followup": {
+          "title": "Follow-up",
+          "summary": "Set a brief check-in in 1–3 days to review progress, support, and adjust.",
+          "prompts": [
+            "Let’s check back on [date/time].",
+            "If something is hard, we’ll think how to help."
+          ]
+        }
+      }
+    }
+  }
+}
