@@ -10,24 +10,22 @@ void i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources: {
-      ru: { common: ru },
-      de: { common: de },
-      en: { common: en },
-    },
-    fallbackLng: "ru",
+    resources: { ru: { common: ru }, de: { common: de }, en: { common: en } },
+    debug: true,
+    fallbackLng: { default: ["ru"], de: ["ru"], en: ["ru"] },
     supportedLngs: ["ru", "de", "en"],
+    load: "currentOnly",                 // de-DE → de
+    nonExplicitSupportedLngs: true,
     ns: ["common"],
     defaultNS: "common",
-    detection: {
-      order: ["querystring", "localStorage", "navigator"],
-      caches: ["localStorage"],
-    },
+    detection: { order: ["querystring", "localStorage", "navigator"], caches: ["localStorage"] },
     interpolation: { escapeValue: false },
+    returnEmptyString: false
   });
 
 i18n.on("languageChanged", (lng) => {
   document.documentElement.lang = lng || "ru";
+  console.log("[i18n] languageChanged:", lng);
 });
 
 export default i18n;

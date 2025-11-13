@@ -3,38 +3,57 @@ import { useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useChildrenStore } from "../stores/useChildrenStore";
+
+function fileToDataURL(file: File): Promise<string> {
+  return new Promise((res, rej) => {
+    const reader = new FileReader();
+    reader.onload = () => res(String(reader.result));
+    reader.onerror = rej;
+    reader.readAsDataURL(file);
+  });
+}
 
 export default function AddChild() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  // локальный стейт — пока без стора детей
-  const [name, setName] = useState("");
-  const [, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  const addChild = useChildrenStore((s) => s.addChild);
+  const setActiveChild = useChildrenStore((s) => s.setActiveChild);
 
-  function onFileChange(e: ChangeEvent<HTMLInputElement>) {
+  const [name, setName] = useState("");
+  const [preview, setPreview] = useState<string | null>(null); // data URL
+  const [pending, setPending] = useState(false);
+
+  async function onFileChange(e: ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0] ?? null;
-    setFile(f);
-    setPreview(f ? URL.createObjectURL(f) : null);
+    if (!f) {
+      setPreview(null);
+      return;
+    }
+    // сохраняем устойчиво — как data URL
+    const data = await fileToDataURL(f);
+    setPreview(data);
   }
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    // пока просто переходим на экран шкалы
-    navigate("/trust");
+    if (pending) return;
+    setPending(true);
+    try {
+      const id = addChild({ name, photoUrl: preview ?? null });
+      setActiveChild(id);
+      navigate("/trust");
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
     <main>
       <h1 className="text-2xl font-semibold mb-4">{t("addChild.title")}</h1>
 
-      <form
-        onSubmit={onSubmit}
-        className="space-y-4"
-        aria-labelledby="add-child-form"
-      >
-        {/* Имя */}
+      <form onSubmit={onSubmit} className="space-y-4" aria-labelledby="add-child-form">
         <label className="block">
           <span className="block mb-1">{t("addChild.name")}</span>
           <input
@@ -44,10 +63,10 @@ export default function AddChild() {
             placeholder="Anna"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           />
         </label>
 
-        {/* Фото */}
         <label className="block">
           <span className="block mb-1">{t("addChild.photo")}</span>
           <input
@@ -59,22 +78,20 @@ export default function AddChild() {
           />
         </label>
 
-        {/* Превью */}
         <div className="mt-2">
           {preview ? (
             <img
               src={preview}
               alt="Selected photo preview"
-              className="h-24 w-24 rounded-xl object-cover border border-token"
+              className="h-24 w-24 rounded-2xl object-cover border border-token"
             />
           ) : (
-            <div className="h-24 w-24 rounded-xl border border-dashed grid place-items-center text-sm opacity-60">
+            <div className="h-24 w-24 rounded-2xl border border-dashed grid place-items-center text-sm opacity-60">
               Preview
             </div>
           )}
         </div>
 
-        {/* Кнопки */}
         <div className="flex gap-3 pt-2">
           <Link
             to="/"
@@ -85,7 +102,8 @@ export default function AddChild() {
 
           <button
             type="submit"
-            className="btn btn-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            className="btn btn-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50"
+            disabled={pending}
           >
             {t("addChild.save")}
           </button>

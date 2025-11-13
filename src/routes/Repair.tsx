@@ -2,44 +2,43 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
-import { useTrustStore } from "../stores/useTrustStore"; // поправь путь, если у тебя иначе
+import { useChildrenStore } from "../stores/useChildrenStore";
 import { REPAIR_FLOW, REQUIRED_REPAIR_COUNT } from "../content/repairFlow";
 
 export default function Repair() {
-  const { t } = useTranslation();
+  // укажем ns один раз — дальше можно не повторять
+  const { t } = useTranslation("common");
   const navigate = useNavigate();
-  const repair = useTrustStore((s) => s.repair); // +3 (persist)
 
-  // отмеченные шаги (id)
+  // +3 к trust активного ребёнка
+  const repairActive = useChildrenStore((s) => s.repairActive);
+
+  // отмеченные шаги
   const [done, setDone] = useState<string[]>([]);
 
-  // сколько обязательных шагов выполнено
+  // прогресс по обязательным
   const requiredDone = REPAIR_FLOW.filter(
     (s) => s.required && done.includes(s.id)
   ).length;
-
-  // можно ли засчитать Repair
   const canComplete = requiredDone >= REQUIRED_REPAIR_COUNT;
 
   const leadId = "repair-lead";
 
-  function toggle(id: string) {
+  const toggle = (id: string) =>
     setDone((d) => (d.includes(id) ? d.filter((x) => x !== id) : [...d, id]));
-  }
 
-  function onComplete() {
-    if (!canComplete) return; // защитимся на всякий случай
-    repair();
-    navigate("/trust");
-  }
+  const onComplete = () => {
+    if (!canComplete) return;
+    repairActive();      // +3 активному ребёнку
+    navigate("/trust");  // назад к шкале
+  };
 
-  // утилита: получить массив строк из i18n-ключа
-  function tArr(key?: string) {
+  // получить массив строк из i18n-ключа
+  const tArr = (key?: string) => {
     if (!key) return [] as string[];
     const v = t(key, { returnObjects: true }) as unknown;
     return Array.isArray(v) ? (v as string[]) : ([] as string[]);
-  }
+  };
 
   return (
     <main className="space-y-5">
@@ -75,12 +74,13 @@ export default function Repair() {
                     {t(step.titleKey)}
                     {step.required && (
                       <span className="ml-2 text-xs opacity-60">
-                        • required
+                        {t("repair.required", { defaultValue: "• required" })}
                       </span>
                     )}
                     {typeof step.estimatedMin === "number" && (
                       <span className="ml-2 text-xs opacity-60">
-                        ~{step.estimatedMin}m
+                        ~{step.estimatedMin}
+                        {t("repair.min", { defaultValue: "m" })}
                       </span>
                     )}
                   </label>
@@ -136,7 +136,8 @@ export default function Repair() {
       {/* Прогресс и кнопка */}
       <div className="flex items-center justify-between pt-2">
         <span className="text-sm opacity-70">
-          {requiredDone}/{REQUIRED_REPAIR_COUNT} required
+          {requiredDone}/{REQUIRED_REPAIR_COUNT}{" "}
+          {t("repair.requiredShort", { defaultValue: "required" })}
         </span>
 
         <button

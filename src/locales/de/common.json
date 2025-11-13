@@ -36,85 +36,56 @@
       "midlow": "Verringert",
       "midhigh": "Gut",
       "high": "Sehr gut"
-    },
+    }
+  },
     "repair": {
-      "title": "Vertrauen wiederherstellen",
-      "lead": "Geht die Schritte gemeinsam durch: ruhig sprechen, Gefühle und Bedürfnisse verstehen, eine Wiedergutmachung wählen und einen klaren Plan vereinbaren.",
-      "complete": "Repair anrechnen",
-      "steps": {
-        "pause": {
-          "title": "Pause & Atmen",
-          "summary": "Erst beruhigen: ein paar tiefe Atemzüge. Ziel des Gesprächs: Vertrauen stärken, nicht bestrafen.",
-          "prompts": [
-            "Lass uns 3 langsame Atemzüge machen.",
-            "Wir sprechen, um Vertrauen zurückzugewinnen und uns zu verstehen."
-          ]
-        },
-        "facts": {
-          "title": "Fakten ohne Bewertungen",
-          "summary": "Fakten von Interpretationen trennen. Was ist genau passiert?",
-          "promptsParent": [
-            "Was ich gesehen/gefunden habe: …",
-            "Nur Fakten (wer? was? wann?)."
-          ],
-          "promptsChild": [
-            "Wie war es aus deiner Sicht?",
-            "Was wolltest du erreichen oder vermeiden?"
-          ]
-        },
-        "feelings": {
-          "title": "Gefühle & Bedürfnisse",
-          "summary": "Gefühle benennen und dahinterliegende Bedürfnisse auf beiden Seiten klären.",
-          "promptsParent": [
-            "Ich fühle …, weil mir … wichtig ist.",
-            "Ich brauche … (Ehrlichkeit/Sicherheit/Respekt/Planbarkeit)."
-          ],
-          "promptsChild": [
-            "Ich fühlte …, mir war … wichtig.",
-            "Was würde dir nächstes Mal helfen?"
-          ]
-        },
-        "impact": {
-          "title": "Auswirkung",
-          "summary": "Folgen für Beziehung, Regeln, Sicherheit und Pläne verstehen.",
-          "prompts": [
-            "Wie hat es unser Vertrauen/Absprachen beeinflusst?",
-            "Was wurde schwieriger für dich/für die Familie?"
-          ]
-        },
-        "amends": {
-          "title": "Wiedergutmachung",
-          "summary": "Konkrete Handlung wählen, die Schaden reduziert und Vertrauen stärkt.",
-          "exercises": [
-            "Optionen: klare Entschuldigung; etwas reparieren/ersetzen; Hilfe/Beitrag; ehrlicher Wochenbericht zu Regeln.",
-            "Einen realistischen Schritt wählen, den das Kind selbst (mit Unterstützung) umsetzen kann."
-          ]
-        },
-        "plan": {
-          "title": "Abmachung & Grenzen",
-          "summary": "Klarer Plan: was, wann, wie prüfen. Grenzen und Konsequenzen bei Wiederholung klären.",
-          "prompts": [
-            "Was genau machst du? Bis wann? Woran sehen wir, dass es erledigt ist?",
-            "Welche Regeln halten wir fest? Was passiert bei erneutem Verstoß?"
-          ]
-        },
-        "appreciation": {
-          "title": "Anerkennung",
-          "summary": "Einsatz und Offenheit würdigen – das stärkt Motivation.",
-          "prompts": [
-            "Danke für deine Offenheit.",
-            "Ich sehe deine Mühe – das hilft unserem Vertrauen."
-          ]
-        },
-        "followup": {
-          "title": "Check-in",
-          "summary": "Kurzer Termin in 1–3 Tagen: Fortschritt besprechen, unterstützen, ggf. anpassen.",
-          "prompts": [
-            "Lass uns am [Datum/Uhrzeit] kurz prüfen, wie es läuft.",
-            "Wenn etwas nicht klappt, suchen wir gemeinsam Lösungen."
-          ]
-        }
+  "title": "Vertrauen wiederherstellen",
+  "lead": "Geht die Schritte gemeinsam durch und hakt die Pflichtpunkte ab. Danach könnt ihr Repair anrechnen.",
+  "complete": "Repair anrechnen",
+  "steps": {
+    "pause": {
+      "title": "Pause & Atmen",
+      "summary": "Erst beruhigen: ein paar langsame Atemzüge.",
+      "prompts": ["Lass uns 3 langsame Atemzüge machen."]
+    },
+    "facts": {
+      "title": "Fakten ohne Bewertungen",
+      "summary": "Festhalten, was passiert ist.",
+      "promptsParent": ["Was ich gesehen/gefunden habe: …"],
+      "promptsChild": ["Wie war es aus deiner Sicht?"]
+    },
+    "feelings": {
+      "title": "Gefühle & Bedürfnisse",
+      "summary": "Gefühle benennen und Bedürfnisse klären.",
+      "promptsParent": ["Ich fühle …, weil mir … wichtig ist."],
+      "promptsChild": ["Mir war … wichtig."]
+    },
+    "impact": {
+      "title": "Auswirkung",
+      "summary": "Folgen verstehen.",
+      "prompts": ["Wie hat es unser Vertrauen beeinflusst?"]
+    },
+    "amends": {
+      "title": "Wiedergutmachung",
+      "summary": "Konkreten Schritt wählen.",
+      "exercises": ["Entschuldigung; reparieren/ersetzen; Hilfe/Beitrag."]
+    },
+    "plan": {
+      "title": "Plan & Grenzen",
+      "summary": "Was–bis wann–wie prüfen.",
+      "prompts": ["Was genau machen wir und bis wann?"]
+    },
+    "appreciation": {
+      "title": "Anerkennung",
+      "summary": "Einsatz würdigen.",
+      "prompts": ["Danke für deine Offenheit."]
+    },
+    "followup": {
+      "title": "Check-in",
+      "summary": "In 1–3 Tagen kurz prüfen.",
+      "prompts": ["Lass uns einen kurzen Termin vereinbaren."]
+    }
       }
     }
   }
-}
+
