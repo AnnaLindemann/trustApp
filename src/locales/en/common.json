@@ -17,10 +17,29 @@
     "en": "ENG"
   },
   "intro": {
-    "title": "Welcome to Trust Jar",
-    "lead": "The app helps foster honest dialogue and track trust level.",
+    "title": "Trust you can actually see.",
+    "lead": "This app helps you visualize trust between you and your child so they can clearly understand how it works.\n\nEach action changes the trust level:\n- when your child lies, 10 points are subtracted;\n- when your child tells the truth, 5 points are added;\n- when your child follows the repair steps, after completing the required steps 3 points are added.\n\nThis way, your child can see how their choices affect trust.",
     "next": "Next"
   },
+   "addChild": {
+         "title": "Add child",
+    "name": "Name",
+    "namePlaceholder": "Child's name",
+    "photo": "Photo",
+    "noFileSelected": "No file selected",
+    "chooseFile": "Choose file",
+    "previewPlaceholder": "Preview",
+    "photoPreviewAlt": "Selected photo preview",
+    "cancel": "Cancel",
+    "save": "Save"
+    },
+    "child": {
+  "current": "Current child",
+  "single": "Child profile",
+  "choose": "Select child",
+  "delete": "Delete",
+  "deleteConfirm": "Delete this child?"
+},
   "meter": {
     "label": "Trust level",
     "status": {
@@ -28,20 +47,15 @@
       "midlow": "Lowered",
       "midhigh": "Good",
       "high": "Excellent"
-    },
-    "addChild": {
-      "title": "Add Child",
-      "name": "Name",
-      "photo": "Photo",
-      "cancel": "Cancel",
-      "save": "Save"
     }
+   
   },
     "repair": {
   "title": "Repair Trust",
   "lead": "Go through the steps together and tick the required ones. Then you can complete the Repair.",
   "complete": "Complete Repair",
-  "steps": {
+  "back": "Back",
+  "steps":{ 
     "pause": {
       "title": "Pause & breathe",
       "summary": "Calm first: a few slow breaths.",

@@ -1,12 +1,12 @@
-// src/stores/useChildrenStore.ts
+
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export type Child = {
   id: string;
   name: string;
-  photoUrl?: string | null;   // data URL
-  trustScore: number;         // <-- отдельный счёт у каждого ребёнка
+  photoUrl?: string | null;   
+  trustScore: number;       
   createdAt: number;
 };
 
@@ -22,9 +22,9 @@ type Actions = {
   renameChild: (id: string, name: string) => void;
   setPhoto: (id: string, photoUrl: string | null) => void;
 
-  truthActive: () => void;   // +5 активному ребёнку
-  lieActive: () => void;     // -10 активному ребёнку
-  repairActive: () => void;  // +3 активному ребёнку
+  truthActive: () => void;  
+  lieActive: () => void;     
+  repairActive: () => void;  
 };
 
 const clamp = (n: number, min = 0, max = 100) =>
@@ -42,7 +42,7 @@ export const useChildrenStore = create<State & Actions>()(
           id,
           name: name.trim() || "Unnamed",
           photoUrl: photoUrl ?? null,
-          trustScore: 50,         // стартовое значение
+          trustScore: 100,         
           createdAt: Date.now(),
         };
         set({ children: [...get().children, child] });
@@ -77,7 +77,6 @@ export const useChildrenStore = create<State & Actions>()(
         });
       },
 
-      // --- Trust-действия по активному ребёнку ---
       truthActive: () => {
         const id = get().activeChildId;
         if (!id) return;

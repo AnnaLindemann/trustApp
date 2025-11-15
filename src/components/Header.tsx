@@ -1,18 +1,42 @@
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ScoreBadge from "./ScoreBadge";
+import logoHeader from "../assets/logoText.svg"; 
+
 
 export default function Header() {
   const { t } = useTranslation();
+  const location = useLocation();
+
+  const showScore =
+    location.pathname.startsWith("/trust") ||
+    location.pathname.startsWith("/repair");
 
   return (
-    <header className="mb-4 flex items-center justify-between">
-      <h1 className="text-lg font-semibold">{t("app.title")}</h1>
+  <header className="mb-4 flex flex-col gap-2 sm:gap-3 border-b border-token pb-3 bg-bg">
+       <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center">
+        <img
+          src={logoHeader}
+          alt={t("app.title")}
+          className="h-8 w-auto sm:h-10"
+        />
+        <span className="sr-only">{t("app.title")}</span>
+      </div>
 
-      <div className="flex items-center gap-3">
-        <ScoreBadge />
+      <div className="origin-right scale-90 sm:scale-100">
         <LanguageSwitcher />
       </div>
-    </header>
-  );
+    </div>
+    
+    {showScore && (
+      <div className="flex w-full justify-center sm:justify-start">
+        <ScoreBadge />
+      </div>
+    )}
+  </header>
+);
 }
+
+

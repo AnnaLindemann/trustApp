@@ -1,10 +1,15 @@
-// src/components/ScoreBadge.tsx
+
 import { useTranslation } from "react-i18next";
-import { useTrustStore } from "../stores/useTrustStore"; // поправь путь при необходимости
+import { useChildrenStore } from "../stores/useChildrenStore";
 
 export default function ScoreBadge() {
   const { t } = useTranslation();
-  const score = useTrustStore((s) => s.trustScore);
+
+  
+  const score = useChildrenStore((s) => {
+    const active = s.children.find((c) => c.id === s.activeChildId);
+    return active?.trustScore ?? 0; 
+  });
 
   return (
     <span className="badge" aria-label={t("app.score", { value: score })}>
@@ -12,3 +17,4 @@ export default function ScoreBadge() {
     </span>
   );
 }
+

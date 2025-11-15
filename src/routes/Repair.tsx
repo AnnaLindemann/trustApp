@@ -6,17 +6,13 @@ import { useChildrenStore } from "../stores/useChildrenStore";
 import { REPAIR_FLOW, REQUIRED_REPAIR_COUNT } from "../content/repairFlow";
 
 export default function Repair() {
-  // укажем ns один раз — дальше можно не повторять
   const { t } = useTranslation("common");
   const navigate = useNavigate();
 
-  // +3 к trust активного ребёнка
   const repairActive = useChildrenStore((s) => s.repairActive);
 
-  // отмеченные шаги
   const [done, setDone] = useState<string[]>([]);
 
-  // прогресс по обязательным
   const requiredDone = REPAIR_FLOW.filter(
     (s) => s.required && done.includes(s.id)
   ).length;
@@ -29,11 +25,10 @@ export default function Repair() {
 
   const onComplete = () => {
     if (!canComplete) return;
-    repairActive();      // +3 активному ребёнку
-    navigate("/trust");  // назад к шкале
+    repairActive();
+    navigate("/trust");
   };
 
-  // получить массив строк из i18n-ключа
   const tArr = (key?: string) => {
     if (!key) return [] as string[];
     const v = t(key, { returnObjects: true }) as unknown;
@@ -41,27 +36,30 @@ export default function Repair() {
   };
 
   return (
-    <main className="space-y-5">
-      <h1 className="text-2xl font-semibold">{t("repair.title")}</h1>
+    <main className="space-y-5 text-fg">
+      <h1 className="text-2xl font-semibold">
+        {t("repair.title")}
+      </h1>
 
-      <p id={leadId} className="text-base opacity-90">
+      <p id={leadId} className="text-base text-muted">
         {t("repair.lead")}
       </p>
 
-      {/* Карточки шагов */}
       <section className="space-y-3">
         {REPAIR_FLOW.map((step) => {
           const checked = done.includes(step.id);
+          const stepBg = step.required ? "note-mint" : "note-sky";
+
           return (
             <article
               key={step.id}
-              className="border border-token rounded-2xl p-3"
+              className={`rounded-2xl border border-token p-3 ${stepBg}`}
             >
               <header className="flex items-start gap-3">
                 <input
                   id={`step-${step.id}`}
                   type="checkbox"
-                  className="mt-1"
+                  className="mt-1 h-4 w-4 accent-(--brand-500)]"
                   checked={checked}
                   onChange={() => toggle(step.id)}
                   aria-describedby={`step-${step.id}-summary`}
@@ -69,16 +67,18 @@ export default function Repair() {
                 <div>
                   <label
                     htmlFor={`step-${step.id}`}
-                    className="font-medium text-base"
+                    className="text-base font-medium text-fg"
                   >
                     {t(step.titleKey)}
                     {step.required && (
-                      <span className="ml-2 text-xs opacity-60">
-                        {t("repair.required", { defaultValue: "• required" })}
+                      <span className="ml-2 text-xs text-muted">
+                        {t("repair.required", {
+                          defaultValue: "• required",
+                        })}
                       </span>
                     )}
                     {typeof step.estimatedMin === "number" && (
-                      <span className="ml-2 text-xs opacity-60">
+                      <span className="ml-2 text-xs text-muted">
                         ~{step.estimatedMin}
                         {t("repair.min", { defaultValue: "m" })}
                       </span>
@@ -86,24 +86,23 @@ export default function Repair() {
                   </label>
                   <p
                     id={`step-${step.id}-summary`}
-                    className="text-sm opacity-80 mt-1"
+                    className="mt-1 text-sm text-muted"
                   >
                     {t(step.summaryKey)}
                   </p>
                 </div>
               </header>
 
-              {/* Подсказки/вопросы */}
               {step.promptsKeys?.map((k, i) => {
                 const items = tArr(k);
                 if (!items.length) return null;
                 return (
                   <ul
                     key={`${step.id}-prompts-${i}`}
-                    className="list-disc pl-6 mt-2 space-y-1"
+                    className="mt-2 space-y-1 list-disc pl-6"
                   >
                     {items.map((text, idx) => (
-                      <li key={idx} className="text-sm">
+                      <li key={idx} className="text-sm text-fg">
                         {text}
                       </li>
                     ))}
@@ -111,17 +110,16 @@ export default function Repair() {
                 );
               })}
 
-              {/* Упражнения */}
               {step.exerciseKeys?.map((k, i) => {
                 const items = tArr(k);
                 if (!items.length) return null;
                 return (
                   <ol
                     key={`${step.id}-exercises-${i}`}
-                    className="list-decimal pl-6 mt-2 space-y-1"
+                    className="mt-2 space-y-1 list-decimal pl-6"
                   >
                     {items.map((text, idx) => (
-                      <li key={idx} className="text-sm">
+                      <li key={idx} className="text-sm text-fg">
                         {text}
                       </li>
                     ))}
@@ -133,21 +131,31 @@ export default function Repair() {
         })}
       </section>
 
-      {/* Прогресс и кнопка */}
-      <div className="flex items-center justify-between pt-2">
-        <span className="text-sm opacity-70">
+      <div className="flex items-center justify-between gap-3 pt-2">
+        <span className="text-sm text-muted">
           {requiredDone}/{REQUIRED_REPAIR_COUNT}{" "}
           {t("repair.requiredShort", { defaultValue: "required" })}
         </span>
 
-        <button
-          className="btn btn-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          aria-describedby={leadId}
-          onClick={onComplete}
-          disabled={!canComplete}
-        >
-          {t("repair.complete")}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="btn btn-ghost focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            onClick={() => navigate(-1)}
+          >
+            {t("repair.back")}
+          </button>
+
+          <button
+            type="button"
+            className="btn btn-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            aria-describedby={leadId}
+            onClick={onComplete}
+            disabled={!canComplete}
+          >
+            {t("repair.complete")}
+          </button>
+        </div>
       </div>
     </main>
   );

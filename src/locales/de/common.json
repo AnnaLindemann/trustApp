@@ -10,24 +10,43 @@
   "btn": {
     "truth": "Wahr",
     "lie": "Lüge",
-    "repair": "Reparatur",
+    "repair": "Wieder gut machen",
     "reset": "Zurücksetzen",
     "ru": "RU",
     "de": "DE",
     "en": "ENG"
   },
   "intro": {
-    "title": "Willkommen bei Trust Jar",
-    "lead": "Die App unterstützt einen ehrlichen Dialog und verfolgt das Vertrauensniveau.",
+    "title": "Vertrauen, das man sehen kann.",
+    "lead": "Diese App hilft, das Vertrauen zwischen dir und deinem Kind sichtbar zu machen, damit dein Kind besser versteht, wie Vertrauen funktioniert.\n\nJede Handlung verändert das Vertrauenslevel:\n- wenn dein Kind lügt, werden 10 Punkte abgezogen;\n- wenn dein Kind die Wahrheit sagt, werden 5 Punkte dazugezählt;\n- wenn dein Kind die Schritte zur Wiederherstellung durchgeht, werden nach den nötigen Schritten 3 Punkte hinzugefügt.\n\nSo kann dein Kind direkt sehen, wie seine Entscheidungen das Vertrauen beeinflussen.",
     "next": "Weiter"
   },
 
   "addChild": {
-    "title": "Kind hinzufügen",
+      "title": "Kind hinzufügen",
     "name": "Name",
+    "namePlaceholder": "Name des Kindes",
     "photo": "Foto",
+    "noFileSelected": "Keine Datei ausgewählt",
+    "chooseFile": "Datei auswählen",
+    "previewPlaceholder": "Vorschau",
+    "photoPreviewAlt": "Vorschau des ausgewählten Fotos",
     "cancel": "Abbrechen",
     "save": "Speichern"
+  },
+  "child": {
+  "current": "Aktuelles Kind",
+  "single": "Kinderprofil",
+  "choose": "Kind auswählen",
+  "delete": "Löschen",
+  "deleteConfirm": "Dieses Kind löschen?"
+},
+    "childForm": {
+    "nameLabel": "Name",
+    "namePlaceholder": "Name des Kindes",
+    "photoLabel": "Foto",
+    "photoButton": "Datei auswählen",
+    "photoNoFile": "Keine Datei ausgewählt"
   },
   "meter": {
     "label": "Vertrauenslevel",
@@ -40,8 +59,9 @@
   },
     "repair": {
   "title": "Vertrauen wiederherstellen",
-  "lead": "Geht die Schritte gemeinsam durch und hakt die Pflichtpunkte ab. Danach könnt ihr Repair anrechnen.",
-  "complete": "Repair anrechnen",
+  "lead": "Geht die Schritte gemeinsam durch und hakt die Pflichtpunkte ab. Danach könnt ihre Vertrauenswiederherstellung anrechnen.",
+  "complete": "Gut gemacht",
+  "back": "Zurück",
   "steps": {
     "pause": {
       "title": "Pause & Atmen",

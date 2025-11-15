@@ -1,25 +1,14 @@
-// src/content/repairFlow.ts
 export type RepairItem = {
   id: string;
-  /** Короткий заголовок шага (i18n key) */
   titleKey: string;
-  /** Краткое объяснение смысла шага (i18n key) */
   summaryKey: string;
-  /** Списки подсказок/вопросов (каждый — i18n key массива строк) */
   promptsKeys?: string[];
-  /** Практика/упражнение — i18n key массива строк (шаги/инструкции) */
-  exerciseKeys?: string[];
-  /** Обязателен для зачёта Repair */
+   exerciseKeys?: string[];
   required?: boolean;
-  /** Оценка длительности шага (минуты) — для UI подсказки */
-  estimatedMin?: number;
+   estimatedMin?: number;
 };
 
-/**
- * Базовый сценарий восстановления доверия.
- * — Структура отделена от текстов (тексты — в i18n JSON).
- * — UI может отобразить каждый шаг как карточку/аккордеон + чекбокс «Готово».
- */
+
 export const REPAIR_FLOW: RepairItem[] = [
   {
     id: "pause",
@@ -80,7 +69,7 @@ export const REPAIR_FLOW: RepairItem[] = [
     titleKey: "repair.steps.appreciation.title",
     summaryKey: "repair.steps.appreciation.summary",
     promptsKeys: ["repair.steps.appreciation.prompts"],
-    required: false,
+    required: true,
     estimatedMin: 1,
   },
   {
@@ -88,12 +77,12 @@ export const REPAIR_FLOW: RepairItem[] = [
     titleKey: "repair.steps.followup.title",
     summaryKey: "repair.steps.followup.summary",
     promptsKeys: ["repair.steps.followup.prompts"],
-    required: true,
+    required: false,
     estimatedMin: 1,
   },
 ];
 
-/** Сколько обязательных шагов нужно отметить, чтобы разблокировать «Зачесть Repair». */
+
 export const REQUIRED_REPAIR_COUNT = REPAIR_FLOW.filter(
   (s) => s.required
 ).length;

@@ -1,4 +1,3 @@
-// src/components/LanguageSwitcher.tsx
 import { useTranslation } from "react-i18next";
 
 const langs = ["ru", "de", "en"] as const;
