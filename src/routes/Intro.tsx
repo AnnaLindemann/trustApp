@@ -1,8 +1,26 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAppStore } from "../stores/useAppStore";
 
 export default function Intro() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const hasCompletedOnboarding = useAppStore(
+    (state) => state.hasCompletedOnboarding,
+  );
+  const completeOnboarding = useAppStore(
+    (state) => state.completeOnboarding,
+  );
+
+  const handleNext = () => {
+    if (!hasCompletedOnboarding) {
+      completeOnboarding();
+      navigate("/children/new");
+    } else {
+      navigate("/trust");
+    }
+  };
 
   return (
     <main className="min-h-full bg-bg flex items-center justify-center px-4 py-8">
@@ -16,12 +34,13 @@ export default function Intro() {
         </p>
 
         <div className="pt-2">
-          <Link
-            to="/children/new"
+          <button
+            type="button"
+            onClick={handleNext}
             className="btn btn-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-(--brand-300)"
           >
             {t("intro.next")}
-          </Link>
+          </button>
         </div>
       </section>
     </main>

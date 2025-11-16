@@ -7,6 +7,12 @@
     "title": "Trust Scale",
     "addChild": "Add Child"
   },
+  "install": {
+    "bannerTitle": "Install TrustApp?",
+    "bannerDescription": "Keep the app on your home screen and use it even offline.",
+    "installButton": "Install app",
+    "notNowButton": "Not now"
+  },
   "btn": {
     "truth": "Truth",
     "lie": "Lie",
@@ -38,8 +44,12 @@
   "single": "Child profile",
   "choose": "Select child",
   "delete": "Delete",
-  "deleteConfirm": "Delete this child?"
+  "deleteConfirm": "Delete this child?",
+  "edit": "Edit"
 },
+"editChild": {
+    "title": "Edit child"
+  },
   "meter": {
     "label": "Trust level",
     "status": {

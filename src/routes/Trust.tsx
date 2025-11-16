@@ -79,20 +79,31 @@ export default function Trust() {
             </select>
           )}
 
-       <button
-  type="button"
-  className="btn ml-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-  onClick={() => {
-    if (confirm(t("child.deleteConfirm"))) {
-      removeChild(activeChild.id);
-    }
-  }}
-  aria-label={t("child.delete")}
-  title={t("child.delete")}
->
-  {t("child.delete")}
-</button>
+          <button
+            type="button"
+            className="btn btn-ghost ml-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            onClick={() => {
+              navigate(`/children/${activeChild.id}/edit`);
+            }}
+            aria-label={t("child.edit")}
+            title={t("child.edit")}
+          >
+            {t("child.edit")}
+          </button>
 
+          <button
+            type="button"
+            className="btn btn-ghost ml-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            onClick={() => {
+              if (confirm(t("child.deleteConfirm"))) {
+                removeChild(activeChild.id);
+              }
+            }}
+            aria-label={t("child.delete")}
+            title={t("child.delete")}
+          >
+            {t("child.delete")}
+          </button>
         </div>
       )}
 
@@ -101,51 +112,49 @@ export default function Trust() {
           <TrustMeter value={score} />
         </div>
       )}
-<div className="mt-4 flex flex-wrap gap-2 sm:gap-3">
-  <button
-    className={`btn btn-primary flex-1 min-w-24 wrap-break-words justify-center px-3 text-xs sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-      activeBtn === "truth" ? activeRing : ""
-    }`}
-    onClick={() => {
-      truthActive();
-      setActiveBtn("truth");
-    }}
-    disabled={!activeChild}
-    aria-pressed={activeBtn === "truth"}
-  >
-    {t("btn.truth")}
-  </button>
+      <div className="mt-4 flex flex-wrap gap-2 sm:gap-3">
+        <button
+          className={`btn btn-primary flex-1 min-w-24 wrap-break-words justify-center px-3 text-xs sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+            activeBtn === "truth" ? activeRing : ""
+          }`}
+          onClick={() => {
+            truthActive();
+            setActiveBtn("truth");
+          }}
+          disabled={!activeChild}
+          aria-pressed={activeBtn === "truth"}
+        >
+          {t("btn.truth")}
+        </button>
 
-  <button
-    className={`btn btn-ghost flex-1 min-w-24 wrap-break-words justify-center px-3 text-xs sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-      activeBtn === "lie" ? activeRing : ""
-    }`}
-    onClick={() => {
-      lieActive();
-      setActiveBtn("lie");
-    }}
-    disabled={!activeChild}
-    aria-pressed={activeBtn === "lie"}
-  >
-    {t("btn.lie")}
-  </button>
+        <button
+          className={`btn btn-ghost flex-1 min-w-24 wrap-break-words justify-center px-3 text-xs sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+            activeBtn === "lie" ? activeRing : ""
+          }`}
+          onClick={() => {
+            lieActive();
+            setActiveBtn("lie");
+          }}
+          disabled={!activeChild}
+          aria-pressed={activeBtn === "lie"}
+        >
+          {t("btn.lie")}
+        </button>
 
-  <button
-    className={`btn btn-ghost flex-1 min-w-24 wrap-break-words justify-center px-3 text-xs sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-      activeBtn === "repair" ? activeRing : ""
-    }`}
-    onClick={() => {
-      setActiveBtn("repair");
-      navigate("/repair");
-    }}
-    disabled={!activeChild}
-    aria-pressed={activeBtn === "repair"}
-  >
-    {t("btn.repair")}
-  </button>
-</div>
-
-     
+        <button
+          className={`btn btn-ghost flex-1 min-w-24 wrap-break-words justify-center px-3 text-xs sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+            activeBtn === "repair" ? activeRing : ""
+          }`}
+          onClick={() => {
+            setActiveBtn("repair");
+            navigate("/repair");
+          }}
+          disabled={!activeChild}
+          aria-pressed={activeBtn === "repair"}
+        >
+          {t("btn.repair")}
+        </button>
+      </div>
     </main>
   );
 }

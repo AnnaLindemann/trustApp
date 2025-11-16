@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { FormEvent, ChangeEvent } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useChildrenStore } from "../stores/useChildrenStore";
 
@@ -13,22 +13,35 @@ function fileToDataURL(file: File): Promise<string> {
   });
 }
 
-export default function AddChild() {
+export default function EditChild() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
-  const addChild = useChildrenStore((s) => s.addChild);
+  const children = useChildrenStore((s) => s.children);
+  const renameChild = useChildrenStore((s) => s.renameChild);
+  const setPhoto = useChildrenStore((s) => s.setPhoto);
   const setActiveChild = useChildrenStore((s) => s.setActiveChild);
 
-  const [name, setName] = useState("");
-  const [preview, setPreview] = useState<string | null>(null);
+  const child = children.find((c) => c.id === id) ?? null;
+
+  const [name, setName] = useState(child?.name ?? "");
+  const [preview, setPreview] = useState<string | null>(
+    child?.photoUrl ?? null,
+  );
   const [fileName, setFileName] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+
+  useEffect(() => {
+    if (!child) {
+      navigate("/trust", { replace: true });
+    }
+  }, [child, navigate]);
 
   async function onFileChange(e: ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0] ?? null;
     if (!f) {
-      setPreview(null);
+      setPreview(child?.photoUrl ?? null);
       setFileName(null);
       return;
     }
@@ -40,28 +53,33 @@ export default function AddChild() {
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (pending) return;
+    if (!child || pending) return;
     setPending(true);
     try {
-      const id = addChild({ name, photoUrl: preview ?? null });
-      setActiveChild(id);
+      renameChild(child.id, name);
+      setPhoto(child.id, preview ?? null);
+      setActiveChild(child.id);
       navigate("/trust");
     } finally {
       setPending(false);
     }
   }
 
+  if (!child) {
+    return null;
+  }
+
   return (
     <main className="min-h-full bg-bg flex justify-center px-4 py-6">
       <section className="card w-full max-w-xl px-6 py-6">
         <h1 className="mb-4 text-2xl font-semibold text-fg">
-          {t("addChild.title")}
+          {t("editChild.title")}
         </h1>
 
         <form
           onSubmit={onSubmit}
           className="space-y-4"
-          aria-labelledby="add-child-form"
+          aria-labelledby="edit-child-form"
         >
           <label className="block" htmlFor="child-name">
             <span className="mb-1 block text-sm text-fg">

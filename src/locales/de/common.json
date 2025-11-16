@@ -7,6 +7,12 @@
     "title": "Vertrauensskala",
     "addChild": "Kind hinzufügen"
   },
+   "install": {
+    "bannerTitle": "TrustApp installieren?",
+    "bannerDescription": "Die App ist direkt auf deinem Bildschirm und kann offline funktionieren.",
+    "installButton": "App installieren",
+    "notNowButton": "Nicht jetzt"
+  },
   "btn": {
     "truth": "Wahr",
     "lie": "Lüge",
@@ -39,7 +45,8 @@
   "single": "Kinderprofil",
   "choose": "Kind auswählen",
   "delete": "Löschen",
-  "deleteConfirm": "Dieses Kind löschen?"
+  "deleteConfirm": "Dieses Kind löschen?",
+  "edit": "Bearbeiten"
 },
     "childForm": {
     "nameLabel": "Name",
@@ -47,6 +54,9 @@
     "photoLabel": "Foto",
     "photoButton": "Datei auswählen",
     "photoNoFile": "Keine Datei ausgewählt"
+  },
+  "editChild": {
+    "title": "Kind bearbeiten"
   },
   "meter": {
     "label": "Vertrauenslevel",
