@@ -4,11 +4,41 @@ import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useChildrenStore } from "../stores/useChildrenStore";
 
-function fileToDataURL(file: File): Promise<string> {
-  return new Promise((res, rej) => {
+// 🔹 НОВАЯ версия: сжатие изображения перед сохранением
+function fileToCompressedDataURL(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => res(String(reader.result));
-    reader.onerror = rej;
+    reader.onerror = reject;
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const maxSize = 320; // ограничим картинку по большей стороне
+        let { width, height } = img;
+
+        if (width > height && width > maxSize) {
+          height = (height * maxSize) / width;
+          width = maxSize;
+        } else if (height >= width && height > maxSize) {
+          width = (width * maxSize) / height;
+          height = maxSize;
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          reject(new Error("Canvas not supported"));
+          return;
+        }
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.7);
+        resolve(dataUrl);
+      };
+      img.onerror = reject;
+      img.src = String(reader.result);
+    };
     reader.readAsDataURL(file);
   });
 }
@@ -33,7 +63,8 @@ export default function AddChild() {
       return;
     }
 
-    const data = await fileToDataURL(f);
+    // 🔹 ТУТ ИЗМЕНЕНИЕ: вместо fileToDataURL → fileToCompressedDataURL
+    const data = await fileToCompressedDataURL(f);
     setPreview(data);
     setFileName(f.name);
   }

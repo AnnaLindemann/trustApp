@@ -1,26 +1,28 @@
 @import "tailwindcss";
 
-/* ========= Design Tokens (пастель) ========= */
+html {
+  -webkit-text-size-adjust: 100%;
+}
 :root {
-  /* Базовые */
-  --bg: #fcfffe; /* почти белый с лёгкой зеленью */
-  --fg: #0f1a17; /* тёмный графит для текста */
-  --muted: #6b7280; /* серый текст второстепенный */
-  --border: #dbe7e4; /* тонкая мятная обводка */
+ 
+  --bg: #fcfffe; 
+  --fg: #0f1a17; 
+  --muted: #6b7280; 
+  --border: #dbe7e4; 
 
-  /* Пастельные акценты, которые используем */
+
   --brand-50: #effcf7;
   --brand-100: #d7f6ec;
-  --brand-300: #8ee6cf; /* мята нежная (фокус инпута) */
+  --brand-300: #8ee6cf; 
   --brand-400: #5fd7bc;
-  --brand-500: #34c4a6; /* основная мята (primary, meter) */
-  --brand-600: #28a58b; /* hover/active */
+  --brand-500: #34c4a6; 
+  --brand-600: #28a58b; 
   --brand-700: #1f8873;
 
-  --rose-100: #ffe6f0; /* для потенциальных эмоциональных блоков */
-  --sky-100: #e8f5ff; /* фон бейджа и part of notes */
+  --rose-100: #ffe6f0; 
+  --sky-100: #e8f5ff; 
 
-  /* Радиусы/тени */
+  
   --radius: 16px;
   --shadow: 0 6px 20px rgba(16, 24, 40, 0.08);
 }
@@ -44,7 +46,7 @@
   }
 }
 
-/* ========= Utilities (токены под твои классы) ========= */
+/* ========= Utilities  ========= */
 @layer utilities {
   .bg-bg {
     background: var(--bg);
@@ -72,7 +74,7 @@
 
 /* ========= Components ========= */
 @layer components {
-  /* Кнопки */
+  
   .btn {
     @apply inline-flex items-center justify-center px-4 h-11 rounded-2xl text-sm font-medium transition
            disabled:opacity-50 disabled:cursor-not-allowed;
@@ -102,7 +104,6 @@
     background: var(--brand-100);
   }
 
-  /* Поля ввода */
   .input {
     @apply h-11 px-3 rounded-2xl w-full text-sm;
     background: #fff;
@@ -116,7 +117,7 @@
     outline: none;
   }
 
-  /* Бейджик/чип (ScoreBadge) */
+  /* ScoreBadge */
   .badge {
     display: inline-flex;
     align-items: center;
@@ -129,7 +130,7 @@
     border: 1px solid var(--border);
   }
 
-  /* Инфо-блоки (Repair) */
+  /* Repair */
   .note-sky {
     background: var(--sky-100);
   }
@@ -140,13 +141,13 @@
 
   /* ---- Trust Meter ---- */
   .meter-track {
-    /* плавный градиент: красный → жёлтый → зелёный */
+ 
     background: linear-gradient(
       90deg,
       #ef4444 0%,
-      /* red-500 */ #f59e0b 40%,
-      /* amber-500 */ #84cc16 70%,
-      /* lime-500 */ var(--brand-500) 100%
+       #f59e0b 40%,
+       #84cc16 70%,
+       var(--brand-500) 100%
     );
     box-shadow: inset 0 1px 2px rgba(16, 24, 40, 0.12);
   }
@@ -154,7 +155,7 @@
   .meter-thumb {
     width: 18px;
     height: 18px;
-    margin-left: -9px; /* центрируем по точке */
+    margin-left: -9px; 
     border-radius: 999px;
     background: #fff;
     border: 2px solid color-mix(in srgb, var(--brand-500) 60%, #fff);

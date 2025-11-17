@@ -1,9 +1,7 @@
-// public/sw.js
 
 const CACHE_VERSION = "v7";
 const CACHE_NAME = `trustapp-cache-${CACHE_VERSION}`;
 
-// ⚠️ тут должны быть ТОЛЬКО реально существующие файлы из public
 const PRECACHE_URLS = [
   "/",
   "/manifest.webmanifest",
@@ -52,7 +50,6 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
 
-  // не трогаем чужие домены
   if (url.origin !== self.location.origin) return;
 
   if (isNavigationRequest(request)) {
@@ -67,21 +64,24 @@ async function handleNavigationRequest(request) {
   try {
     const networkResponse = await fetch(request);
 
-    // если онлайн, обновляем app-shell
     if (networkResponse && networkResponse.status === 200) {
       const cache = await caches.open(CACHE_NAME);
       cache.put("/", networkResponse.clone());
+      return networkResponse;
     }
 
-    return networkResponse;
-  } catch {
-    // оффлайн → отдаём кешированный /
     const cachedShell = await caches.match("/");
     if (cachedShell) {
       return cachedShell;
     }
 
-    // вообще нет шелла — честный 503
+    return networkResponse;
+  } catch {
+    const cachedShell = await caches.match("/");
+    if (cachedShell) {
+      return cachedShell;
+    }
+
     return new Response("Offline (no cached shell)", {
       status: 503,
       statusText: "Service Unavailable (offline - no shell)",

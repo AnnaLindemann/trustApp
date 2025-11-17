@@ -114,6 +114,19 @@ export default function Trust() {
       )}
       <div className="mt-4 flex flex-wrap gap-2 sm:gap-3">
         <button
+          className={`btn btn-ghost flex-1 min-w-24 wrap-break-words justify-center px-3 text-xs sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+            activeBtn === "lie" ? activeRing : ""
+          }`}
+          onClick={() => {
+            lieActive();
+            setActiveBtn("lie");
+          }}
+          disabled={!activeChild}
+          aria-pressed={activeBtn === "lie"}
+        >
+          {t("btn.lie")}
+        </button>
+        <button
           className={`btn btn-primary flex-1 min-w-24 wrap-break-words justify-center px-3 text-xs sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
             activeBtn === "truth" ? activeRing : ""
           }`}
@@ -127,19 +140,7 @@ export default function Trust() {
           {t("btn.truth")}
         </button>
 
-        <button
-          className={`btn btn-ghost flex-1 min-w-24 wrap-break-words justify-center px-3 text-xs sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
-            activeBtn === "lie" ? activeRing : ""
-          }`}
-          onClick={() => {
-            lieActive();
-            setActiveBtn("lie");
-          }}
-          disabled={!activeChild}
-          aria-pressed={activeBtn === "lie"}
-        >
-          {t("btn.lie")}
-        </button>
+        
 
         <button
           className={`btn btn-ghost flex-1 min-w-24 wrap-break-words justify-center px-3 text-xs sm:text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
